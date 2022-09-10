@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateBrandCommand createBrandCommand)
         {
-            CreatedBrandDto result = await Mediator.Send(createBrandCommand);
+            CreatedBrandDto result = await Mediator!.Send(createBrandCommand);
             return Created("", result);
         }
 
@@ -25,14 +25,14 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
             GetListBrandQuery getListBrandQuery = new() { PageRequest = pageRequest };
-            BrandListModel result = await Mediator.Send(getListBrandQuery);
+            BrandListModel result = await Mediator!.Send(getListBrandQuery);
             return Ok(result);
         }
 
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById([FromRoute] GetByIdBrandQuery getByIdBrandQuery)
         {
-            BrandGetByIdDto brandGetByIdDto = await Mediator.Send(getByIdBrandQuery);
+            BrandGetByIdDto brandGetByIdDto = await Mediator!.Send(getByIdBrandQuery);
             return Ok(brandGetByIdDto);
         }
 

@@ -14,7 +14,7 @@ namespace Application.Features.Brands.Commands.CreateBrand
 {
     public  class CreateBrandCommand:IRequest<CreatedBrandDto>
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, CreatedBrandDto>
         {
@@ -31,7 +31,7 @@ namespace Application.Features.Brands.Commands.CreateBrand
 
             public async Task<CreatedBrandDto> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
             {
-                await _brandBusinessRules.BrandNameCanNotBeDuplicatedWhenInserted(request.Name);
+                await _brandBusinessRules.BrandNameCanNotBeDuplicatedWhenInserted(request.Name!);
 
                 Brand mappedBrand = _mapper.Map<Brand>(request);
                 Brand createdBrand = await _brandRepository.AddAsync(mappedBrand);
